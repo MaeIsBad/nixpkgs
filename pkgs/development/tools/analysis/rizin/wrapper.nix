@@ -1,4 +1,11 @@
-{ rizin, rizin-unwrapped, rizinPlugins, symlinkJoin, plugins ? [ ] }:
+{ rizin
+, rizin-unwrapped
+, rizinPlugins
+, symlinkJoin
+, plugins ? [ ]
+# Used for tests
+, callPackage
+ }:
 let
   # For clarity
   self = rizin;
@@ -31,4 +38,6 @@ symlinkJoin
       newPlugins = pl rizinPlugins;
     in
     self.override (o: { plugins = plugins ++ newPlugins; });
+
+  passthru.tests = callPackage ./tests.nix {};
 }
