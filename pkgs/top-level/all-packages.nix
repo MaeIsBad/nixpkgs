@@ -16527,7 +16527,9 @@ with pkgs;
 
   retry = callPackage ../tools/system/retry { };
 
-  rizin = pkgs.callPackage ../development/tools/analysis/rizin { };
+  rizin-unwrapped = pkgs.callPackage ../development/tools/analysis/rizin { };
+  rizin = pkgs.callPackage ../development/tools/analysis/rizin/wrapper.nix { };
+  rizinPlugins = recurseIntoAttrs (callPackage ../development/tools/analysis/rizin/plugins { });
 
   cutter = libsForQt515.callPackage ../development/tools/analysis/rizin/cutter.nix { };
 

@@ -19,10 +19,13 @@
 , capstone
 , tree-sitter
 , python3
+
+# Enable portable builds by default, to ensure rizin can start from a store path with plugins, without recompiling
+, portableBuild ? true 
 }:
 
 stdenv.mkDerivation rec {
-  pname = "rizin";
+  pname = "rizin-unwrapped";
   version = "0.4.0";
 
   src = fetchurl {
@@ -39,6 +42,7 @@ stdenv.mkDerivation rec {
     "-Duse_sys_lz4=enabled"
     "-Duse_sys_openssl=enabled"
     "-Duse_sys_tree_sitter=enabled"
+    "-Dportable=${if portableBuild then "true" else "false"}"
   ];
 
   nativeBuildInputs = [ pkg-config meson ninja cmake (python3.withPackages (ps: [ ps.setuptools ])) ];
@@ -78,4 +82,5 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ raskin makefu mic92 ];
     platforms = with lib.platforms; linux;
   };
+  inherit portableBuild;
 }

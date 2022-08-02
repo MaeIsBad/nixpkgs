@@ -4,7 +4,7 @@
 # Qt
 , qtbase, qtsvg, qtwebengine, qttools
 # buildInputs
-, rizin
+, rizin-unwrapped
 , python3
 , wrapQtAppsHook
 }:
@@ -23,7 +23,7 @@ mkDerivation rec {
 
   nativeBuildInputs = [ cmake qmake pkg-config python3 wrapQtAppsHook ];
   propagatedBuildInputs = [ python3.pkgs.pyside2 ];
-  buildInputs = [ qtbase qttools qtsvg qtwebengine rizin python3 ];
+  buildInputs = [ qtbase qttools qtsvg qtwebengine rizin-unwrapped python3 ];
 
   cmakeFlags = [
     "-DCUTTER_USE_BUNDLED_RIZIN=OFF"
